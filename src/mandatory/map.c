@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:48:40 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/10 02:29:46 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/10 13:31:10 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	read_map(t_cub3d *cub3d)
 	cub3d->map = map;
 	cub3d->map_y = 8;
 	cub3d->map_x = 9;
+	cub3d->player = get_player_position(cub3d);
+	cub3d->player.x = cub3d->player.x * MINI_MAP_TILE_SIZE;
+	cub3d->player.y = cub3d->player.y * MINI_MAP_TILE_SIZE;
 }
 
 static uint32_t	get_mini_map_color(t_cub3d *cub3d, t_vector *point)
