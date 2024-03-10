@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:48:40 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/09 19:05:17 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/09 22:37:14 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,11 @@ void	render_mini_map(t_cub3d *cub3d)
 
 	for(point.y = 0; point.y < cub3d->map_y; point.y++)
 	{
-		printf("%s\n", cub3d->map[(int)point.y]);
 		for(point.x = 0; point.x < cub3d->map_x; point.x++)
 		{
-			uint32_t color = get_mini_map_color(cub3d, &point);
 			map_point.y = point.y * MINI_MAP_TILE_SIZE;
 			map_point.x = point.x * MINI_MAP_TILE_SIZE;
-			render_square(cub3d, map_point, color);
-
+			render_square(cub3d, map_point, get_mini_map_color(cub3d, &point));
 		}
 	}
 }
