@@ -16,7 +16,7 @@ OBJ_DIR := build
 INCLUDE_DIR := include
 INCLUDES := -I$(INCLUDE_DIR) -I$(LIBTF_DIR) -I$(LIBMLX)/include
 
-SRCS := cub3d.c
+SRCS := cub3d.c map.c render.c
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 SRCS_BONUS := cub3d_bonus.c
@@ -34,7 +34,7 @@ libft:
 	@$(MAKE) -C $(LIBTF_DIR)
 
 mlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	/nfs/homes/bedos-sa/.local/lib/python3.8/site-packages/cmake/data/bin/cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
