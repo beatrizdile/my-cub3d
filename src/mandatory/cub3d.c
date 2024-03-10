@@ -38,6 +38,7 @@ void	initialize(t_cub3d *cub3d)
 void	ft_hook(void *cub3d)
 {
 	render_mini_map((t_cub3d *)cub3d);
+	render_player((t_cub3d *)cub3d);
 }
 
 int	main()

@@ -6,27 +6,29 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:48:40 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/09 22:37:14 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/10 02:29:46 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 
-static char	*map[5] = {	
-						"1111111",
-						"1000001",
-						"1001101",
-						"1N00101",
-						"1111111"
+static char	*map[8] = {	
+						"111111111",
+						"100000001",
+						"101000111",
+						"111001101",
+						"100000101",
+						"1010N0101",
+						"100000001",
+						"111111111"
 					};
-
 
 void	read_map(t_cub3d *cub3d)
 {
 	cub3d->map = map;
-	cub3d->map_y = 5;
-	cub3d->map_x = 7;
+	cub3d->map_y = 8;
+	cub3d->map_x = 9;
 }
 
 static uint32_t	get_mini_map_color(t_cub3d *cub3d, t_vector *point)
@@ -54,7 +56,8 @@ void	render_mini_map(t_cub3d *cub3d)
 		{
 			map_point.y = point.y * MINI_MAP_TILE_SIZE;
 			map_point.x = point.x * MINI_MAP_TILE_SIZE;
-			render_square(cub3d, map_point, get_mini_map_color(cub3d, &point));
+			render_square(cub3d, map_point, MINI_MAP_TILE_SIZE, \
+							get_mini_map_color(cub3d, &point));
 		}
 	}
 }
