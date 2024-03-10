@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:48:13 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/10 02:30:53 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/10 13:26:35 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	render_square(t_cub3d *cub3d, t_vector map_point, size_t size, uint32_t col
 
 void	render_player(t_cub3d *cub3d)
 {
-	t_vector	point;
+	t_vector	player;
 
-	point = get_player_position(cub3d);
-	point.x = point.x * MINI_MAP_TILE_SIZE;
-	point.y = point.y * MINI_MAP_TILE_SIZE;
+	player = cub3d->player;
 
-	for(size_t y = point.y; y < (point.y + MINI_MAP_PLAYER_SIZE); y++)
-		for(size_t x = point.x; x < (point.x + MINI_MAP_PLAYER_SIZE); x++)
+	// we divide by two so we render around our player's coordinates, that way,
+	// the player's x and y will be at the center of our square, not in the top left
+	for(size_t y = (player.y - MINI_MAP_PLAYER_SIZE/2); y < (player.y + MINI_MAP_PLAYER_SIZE/2); y++)
+		for(size_t x = (player.x - MINI_MAP_PLAYER_SIZE/2); x < (player.x + MINI_MAP_PLAYER_SIZE/2); x++)
 				mlx_put_pixel(((t_cub3d *)cub3d)->image, x, y, PLAYER_COLOR);
 }

@@ -30,13 +30,15 @@
 # define HEIGHT 800
 # define MINI_MAP_TILE_SIZE 30
 # define MINI_MAP_PLAYER_SIZE 15
-# define RESIZE_WINDOW false
+# define RESIZABLE_WINDOW false
 
 # define PLAYER_COLOR 0xFF0000FF
 # define RAY_COLOR 0xFF0000FF
 # define FLOOR_TILE_COLOR 0xFFFFFFFF
 # define WALL_TILE_COLOR 0x000000FF
 # define GRID_TILE_COLOR 0x131415FF
+
+# define PLAYER_SPEED 2
 
 # define WEST "WE"
 # define NORTH "NO"
@@ -47,7 +49,6 @@
 
 # define WALL_CHAR '1'
 # define FLOOR_CHAR '0'
-
 # define FILE_EXTENSION ".cub"
 
 typedef struct s_vector
@@ -63,6 +64,7 @@ typedef struct s_cub3d
 	char			**map;
 	size_t			map_x;
 	size_t			map_y;
+	t_vector		player;
 }					t_cub3d;
 
 // map.c
@@ -75,5 +77,6 @@ void		render_player(t_cub3d *cub3d);
 
 // player.c
 t_vector	get_player_position(t_cub3d *cub3d);
+void		move_player(t_cub3d *cub3d, int x_signal, int y_signal);
 
 #endif

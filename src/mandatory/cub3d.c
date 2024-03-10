@@ -14,7 +14,7 @@
 
 void	initialize(t_cub3d *cub3d)
 {
-	cub3d->mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3D", true);
+	cub3d->mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3D", RESIZABLE_WINDOW);
 	if (cub3d->mlx_ptr == NULL)
 	{
 		puts(mlx_strerror(mlx_errno));
@@ -35,10 +35,29 @@ void	initialize(t_cub3d *cub3d)
 	}
 }
 
-void	ft_hook(void *cub3d)
+void	init_variables(t_cub3d	*cub3d)
 {
-	render_mini_map((t_cub3d *)cub3d);
-	render_player((t_cub3d *)cub3d);
+	read_map(cub3d);
+
+}
+
+static void	main_hook(void *param)
+{	
+	t_cub3d	*cub3d;
+
+	cub3d = param;
+	render_mini_map(cub3d);
+	render_player(cub3d);
+	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_ESCAPE))
+		mlx_close_window(cub3d->mlx_ptr);
+	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_W))
+		move_player(cub3d, 0, -1);
+	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_S))
+		move_player(cub3d, 0, 1);
+	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_A))
+		move_player(cub3d, -1, 0);
+	if (mlx_is_key_down(cub3d->mlx_ptr, MLX_KEY_D))
+		move_player(cub3d, 1, 0);
 }
 
 int	main()
@@ -46,8 +65,8 @@ int	main()
 	t_cub3d		cub3d;
 
 	initialize(&cub3d);
-	read_map(&cub3d);
-	mlx_loop_hook(cub3d.mlx_ptr, ft_hook, &cub3d);
+	init_variables(&cub3d);
+	mlx_loop_hook(cub3d.mlx_ptr, main_hook, &cub3d);
 	mlx_loop(cub3d.mlx_ptr);
 	mlx_terminate(cub3d.mlx_ptr);
 	return (EXIT_SUCCESS);
