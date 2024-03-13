@@ -28,8 +28,8 @@
 
 # define WIDTH 1200
 # define HEIGHT 800
-# define MINI_MAP_TILE_SIZE 30
-# define MINI_MAP_PLAYER_SIZE 15
+# define MINI_MAP_TILE_SIZE 40
+# define MINI_MAP_PLAYER_SIZE 20
 # define RESIZABLE_WINDOW false
 
 # define PLAYER_COLOR 0xFF0000FF
@@ -76,7 +76,6 @@ void		render_square(t_cub3d *cub3d, t_vector map_point, size_t size, uint32_t co
 void		render_player(t_cub3d *cub3d);
 
 // player.c
-t_vector	get_player_position(t_cub3d *cub3d);
 void		move_player(t_cub3d *cub3d, int x_signal, int y_signal);
 
 #endif
