@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 16:48:40 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/13 19:58:45 by bedos-sa         ###   ########.fr       */
+/*   Created: 2024/03/09 17:48:13 by bedos-sa          #+#    #+#             */
+/*   Updated: 2024/03/16 10:58:11 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static char	*map[8] = {
 						"100000001",
 						"111111111"
 					};
+
 
 static t_vector	get_player_position(t_cub3d *cub3d)
 {
@@ -52,33 +53,41 @@ void	read_map(t_cub3d *cub3d)
 	cub3d->player.y = (cub3d->player.y * MINI_MAP_TILE_SIZE) + (MINI_MAP_TILE_SIZE / 2);
 }
 
-static uint32_t	get_mini_map_color(t_cub3d *cub3d, t_vector *point)
+static size_t	get_file_size(char *map_file)
 {
-	uint32_t color;
-	int y = point->y;
-	int x = point->x;
+	char	*line;
+	int		fd;
+	size_t	lines_size;
 
-	color = 0;
-	if (cub3d->map[y][x] == '1')
-		color = WALL_TILE_COLOR;
-	else if (cub3d->map[y][x] == '0' || cub3d->map[y][x] == 'N')
-		color = FLOOR_TILE_COLOR;
-	return (color);
+	lines_size = 0;
+	fd = open(map_file, O_RDONLY);
+	if (fd == -1)
+		err_exit(ERR_INVALID_MAP_FILE);
+	while (true)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		lines_size++;
+		free(line);
+	}
+	close(fd);
+	return (lines_size);
 }
 
-void	render_mini_map(t_cub3d *cub3d)
-{
-	t_vector	point;
-	t_vector	map_point;
 
-	for(point.y = 0; point.y < cub3d->map_y; point.y++)
-	{
-		for(point.x = 0; point.x < cub3d->map_x; point.x++)
-		{
-			map_point.y = point.y * MINI_MAP_TILE_SIZE;
-			map_point.x = point.x * MINI_MAP_TILE_SIZE;
-			render_square(cub3d, map_point, MINI_MAP_TILE_SIZE, \
-							get_mini_map_color(cub3d, &point));
-		}
-	}
+void	get_map(t_cub3d	*cub3d)
+{
+	size_t	lines_size;
+	char	*map_file = cub3d->argv[1]; // this is temporary!
+	// int		fd;
+	// char	*line;
+
+	if (cub3d->argc != 2)
+		err_exit(ERR_INVALID_NUM_OF_PARAMS);
+	lines_size = get_file_size(map_file);
+	if (lines_size == 0)
+		err_exit(ERR_INVALID_EMPTY_FILE);
+	printf("lines_size: %zu\n", lines_size);
+	read_map(cub3d);
 }

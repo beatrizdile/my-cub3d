@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	initialize(t_cub3d *cub3d)
+void	initialize_mlx(t_cub3d *cub3d)
 {
 	cub3d->mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3D", RESIZABLE_WINDOW);
 	if (cub3d->mlx_ptr == NULL)
@@ -35,12 +35,6 @@ void	initialize(t_cub3d *cub3d)
 	}
 }
 
-void	init_variables(t_cub3d	*cub3d)
-{
-	read_map(cub3d);
-
-}
-
 static void	main_hook(void *param)
 {	
 	t_cub3d	*cub3d;
@@ -60,12 +54,14 @@ static void	main_hook(void *param)
 		move_player(cub3d, 1, 0);
 }
 
-int	main()
+int	main(int argc, char **argv)
 {
 	t_cub3d		cub3d;
 
-	initialize(&cub3d);
-	init_variables(&cub3d);
+	cub3d.argc = argc;
+	cub3d.argv = argv;
+	get_map(&cub3d);
+	initialize_mlx(&cub3d);
 	mlx_loop_hook(cub3d.mlx_ptr, main_hook, &cub3d);
 	mlx_loop(cub3d.mlx_ptr);
 	mlx_terminate(cub3d.mlx_ptr);
