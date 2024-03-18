@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:48:13 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/16 10:58:11 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:16:31 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,22 @@ static size_t	get_file_size(char *map_file)
 	return (lines_size);
 }
 
+bool	valid_map_file_name(char *argv)
+{
+	size_t	filename_size;
+	size_t	extension_size;
+
+	filename_size = ft_strlen(argv);
+	extension_size = ft_strlen(FILE_EXTENSION);
+	if (filename_size < extension_size)
+		err_exit(ERR_INVALID_FILE_NAME);
+	while (extension_size--)
+	{
+		if (argv[--filename_size] != FILE_EXTENSION[extension_size])
+			return (false);
+	}
+	return (true);
+}
 
 void	get_map(t_cub3d	*cub3d)
 {
@@ -83,11 +99,18 @@ void	get_map(t_cub3d	*cub3d)
 	// int		fd;
 	// char	*line;
 
+		
 	if (cub3d->argc != 2)
 		err_exit(ERR_INVALID_NUM_OF_PARAMS);
+	if (!valid_map_file_name(cub3d->argv[1]))
+		err_exit(ERR_INVALID_FILE_NAME);
 	lines_size = get_file_size(map_file);
 	if (lines_size == 0)
 		err_exit(ERR_INVALID_EMPTY_FILE);
 	printf("lines_size: %zu\n", lines_size);
+	// TODO: parse valid file name
+	// TODO: get map size to malloc
+	// TODO: malloc and store map content
+	// TODO: check for valid map
 	read_map(cub3d);
 }

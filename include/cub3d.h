@@ -29,12 +29,14 @@
 # define ERR_INVALID_NUM_OF_PARAMS "Error\nInvalid number of parameters\n"
 # define ERR_INVALID_MAP_FILE "Error\nInvalid map file\n"
 # define ERR_INVALID_EMPTY_FILE "Error\nEmpty file\n"
+# define ERR_INVALID_FILE_NAME "Error\nInvalid map file name\n"
 
 # define WIDTH 1200
 # define HEIGHT 800
 # define MINI_MAP_TILE_SIZE 40
 # define MINI_MAP_PLAYER_SIZE 20
 # define RESIZABLE_WINDOW false
+# define FILE_EXTENSION ".cub"
 
 # define PLAYER_COLOR 0xFF0000FF
 # define RAY_COLOR 0xFF0000FF
