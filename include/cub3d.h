@@ -26,11 +26,17 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 
+# define ERR_INVALID_NUM_OF_PARAMS "Error\nInvalid number of parameters\n"
+# define ERR_INVALID_MAP_FILE "Error\nInvalid map file\n"
+# define ERR_INVALID_EMPTY_FILE "Error\nEmpty file\n"
+# define ERR_INVALID_FILE_NAME "Error\nInvalid map file name\n"
+
 # define WIDTH 1200
 # define HEIGHT 800
 # define MINI_MAP_TILE_SIZE 40
 # define MINI_MAP_PLAYER_SIZE 20
 # define RESIZABLE_WINDOW false
+# define FILE_EXTENSION ".cub"
 
 # define PLAYER_COLOR 0xFF0000FF
 # define RAY_COLOR 0xFF0000FF
@@ -59,6 +65,8 @@ typedef struct s_vector
 
 typedef struct s_cub3d
 {
+	char			**argv;
+	int				argc;
 	mlx_t			*mlx_ptr;
 	mlx_image_t		*image;
 	char			**map;
@@ -68,6 +76,7 @@ typedef struct s_cub3d
 }					t_cub3d;
 
 // map.c
+void		get_map(t_cub3d	*cub3d);
 void		read_map(t_cub3d *cub3d);
 void		render_mini_map(t_cub3d *cub3d);
 
@@ -77,5 +86,8 @@ void		render_player(t_cub3d *cub3d);
 
 // player.c
 void		move_player(t_cub3d *cub3d, int x_signal, int y_signal);
+
+// finish.c
+void		err_exit(char *str);
 
 #endif
