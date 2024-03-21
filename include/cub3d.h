@@ -72,6 +72,7 @@ typedef struct s_cub3d
 	char			**map;
 	size_t			map_x;
 	size_t			map_y;
+	size_t			num_of_map_lines;
 	t_vector		player;
 }					t_cub3d;
 
@@ -89,5 +90,8 @@ void		move_player(t_cub3d *cub3d, int x_signal, int y_signal);
 
 // finish.c
 void		err_exit(char *str);
+
+// free.c
+void		free_map_content(t_cub3d *cub3d);
 
 #endif
