@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:48:13 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/18 21:42:10 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/20 21:18:16 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ static size_t	get_file_size(char *map_file)
 {
 	char	*line;
 	int		fd;
-	size_t	lines_size;
+	size_t	num_of_map_lines;
 
-	lines_size = 0;
+	num_of_map_lines = 0;
 	fd = open(map_file, O_RDONLY);
 	if (fd == -1)
 		err_exit(ERR_INVALID_MAP_FILE);
@@ -68,11 +68,11 @@ static size_t	get_file_size(char *map_file)
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		lines_size++;
+		num_of_map_lines++;
 		free(line);
 	}
 	close(fd);
-	return (lines_size);
+	return (num_of_map_lines);
 }
 
 bool	valid_map_file_name(char *argv)
@@ -92,39 +92,36 @@ bool	valid_map_file_name(char *argv)
 	return (true);
 }
 
-void	store_map_content(t_cub3d *cub3d, size_t lines_size)
+void	store_map_content(t_cub3d *cub3d)
 {
-	char	*line;
 	int		fd;
 
 	fd = open(cub3d->argv[1], O_RDONLY);
-	cub3d->map = calloc(lines_size, sizeof(char *));
-	for (int i = 0; i < (int)lines_size; i++)
+	cub3d->map = calloc(cub3d->num_of_map_lines, sizeof(char *));
+	for (int i = 0; i < (int)(cub3d->num_of_map_lines); i++)
 	{
-		line = get_next_line(fd);
-		cub3d->map[i] = calloc(strlen(line), sizeof(char *));
-		cub3d->map[i] = line;
+		cub3d->map[i] = get_next_line(fd);
 		if (cub3d->map[i] == NULL)
 			break ;
 	}
 	close(fd);
-	for (int i = 0; i < (int)lines_size; i++)
-		printf("%s", cub3d->map[i]);
+	// for (int i = 0; i < (int)cub3d->num_of_map_lines; i++)
+	// 	printf("%s", cub3d->map[i]);
 }
 
 void	get_map(t_cub3d	*cub3d)
 {
-	size_t	lines_size;
 	char	*map_file = cub3d->argv[1];
 		
 	if (cub3d->argc != 2)
 		err_exit(ERR_INVALID_NUM_OF_PARAMS);
 	if (!valid_map_file_name(map_file))
 		err_exit(ERR_INVALID_FILE_NAME);
-	lines_size = get_file_size(map_file);
-	if (lines_size == 0)
+	cub3d->num_of_map_lines = get_file_size(map_file);
+	if (cub3d->num_of_map_lines == 0)
 		err_exit(ERR_INVALID_EMPTY_FILE);
-	store_map_content(cub3d, lines_size);
+	store_map_content(cub3d);
+	free_map_content(cub3d);
 	read_map(cub3d);
 }
 
