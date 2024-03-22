@@ -16,8 +16,8 @@ OBJ_DIR := build
 INCLUDE_DIR := include
 INCLUDES := -I$(INCLUDE_DIR) -I$(LIBTF_DIR) -I$(LIBMLX)/include
 
-SRCS := cub3d.c map_parsing.c mini_map_rendering.c render.c player.c exit.c
-SRCS += free.c
+SRCS := cub3d.c map_parsing.c mini_map_rendering.c render.c player_movement.c exit.c
+SRCS += free.c map_validation.c
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 SRCS_BONUS := cub3d_bonus.c
@@ -66,6 +66,6 @@ run: all
 	./$(NAME) maps/map2.cub
 
 check: all
-	valgrind -q --leak-check=full --suppressions=suppress.sup ./$(NAME)
+	valgrind --leak-check=full --suppressions=suppress.sup ./$(NAME) maps/map1.cub
 
 .PHONY: all clean fclean re bonus rebonus libft update_modules init_modules
