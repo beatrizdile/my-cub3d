@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:48:13 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/20 21:18:16 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/22 19:17:58 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static t_vector	get_player_position(t_cub3d *cub3d)
 	{
 		for(size_t x = 0; x < cub3d->map_x; x++)
 		{
-			if (cub3d->map[y][x] == 'N')
+			if (cub3d->map[y][x] == 'N' || cub3d->map[y][x] == 'S' || \
+					cub3d->map[y][x] == 'W' || cub3d->map[y][x] == 'E')
 			{
 				point.x = x;
 				point.y = y;
@@ -129,3 +130,4 @@ void	get_map(t_cub3d	*cub3d)
 	// TODO: get map size to malloc
 	// TODO: malloc and store map content
 	// TODO: check for valid map
+	

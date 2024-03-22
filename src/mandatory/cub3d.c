@@ -14,13 +14,13 @@
 
 void	initialize_mlx(t_cub3d *cub3d)
 {
-	cub3d->mlx_ptr = mlx_init(WIDTH, HEIGHT, "cub3D", RESIZABLE_WINDOW);
+	cub3d->mlx_ptr = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3D", RESIZABLE_WINDOW);
 	if (cub3d->mlx_ptr == NULL)
 	{
 		puts(mlx_strerror(mlx_errno));
 		exit(EXIT_FAILURE);
 	}
-	cub3d->image = mlx_new_image(cub3d->mlx_ptr, WIDTH, HEIGHT);
+	cub3d->image = mlx_new_image(cub3d->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (cub3d->image == NULL)
 	{
 		mlx_close_window(cub3d->mlx_ptr);

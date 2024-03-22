@@ -31,8 +31,8 @@
 # define ERR_INVALID_EMPTY_FILE "Error\nEmpty file\n"
 # define ERR_INVALID_FILE_NAME "Error\nInvalid map file name\n"
 
-# define WIDTH 1200
-# define HEIGHT 800
+# define WINDOW_WIDTH 1200
+# define WINDOW_HEIGHT 800
 # define MINI_MAP_TILE_SIZE 40
 # define MINI_MAP_PLAYER_SIZE 20
 # define RESIZABLE_WINDOW false
