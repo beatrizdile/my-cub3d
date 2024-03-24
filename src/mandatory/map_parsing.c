@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:48:13 by bedos-sa          #+#    #+#             */
-/*   Updated: 2024/03/22 19:17:58 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2024/03/23 22:48:05 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,6 @@ void	store_map_content(t_cub3d *cub3d)
 			break ;
 	}
 	close(fd);
-	// for (int i = 0; i < (int)cub3d->num_of_map_lines; i++)
-	// 	printf("%s", cub3d->map[i]);
 }
 
 void	get_map(t_cub3d	*cub3d)
@@ -122,6 +120,7 @@ void	get_map(t_cub3d	*cub3d)
 	if (cub3d->num_of_map_lines == 0)
 		err_exit(ERR_INVALID_EMPTY_FILE);
 	store_map_content(cub3d);
+	check_valid_map(cub3d);		
 	free_map_content(cub3d);
 	read_map(cub3d);
 }

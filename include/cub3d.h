@@ -81,6 +81,9 @@ void		get_map(t_cub3d	*cub3d);
 void		read_map(t_cub3d *cub3d);
 void		render_mini_map(t_cub3d *cub3d);
 
+// map_validation.c
+void		check_valid_map(t_cub3d *cub3d);
+
 // render.c
 void		render_square(t_cub3d *cub3d, t_vector map_point, size_t size, uint32_t color);
 void		render_player(t_cub3d *cub3d);
